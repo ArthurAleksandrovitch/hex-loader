@@ -29,7 +29,8 @@ jobs:
           sudo apt-get install -y \
             libgl1-mesa-dev \
             xorg-dev \
-            libxkbcommon-dev
+            libxkbcommon-dev \
+            libwayland-dev
 
       - name: Check formatting
         run: |
