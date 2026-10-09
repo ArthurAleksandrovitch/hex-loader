@@ -66,7 +66,12 @@ jobs:
           install: >-
             mingw-w64-ucrt-x86_64-toolchain
             mingw-w64-ucrt-x86_64-glfw
-
+      - name: Verify GCC installation
+        shell: msys2 {0}
+        run: |
+          which gcc
+          gcc --version
+          which pkg-config
       - name: Check formatting
         shell: msys2 {0}
         run: test -z "$(gofmt -l .)"
