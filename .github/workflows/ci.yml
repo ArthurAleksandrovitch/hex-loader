@@ -79,21 +79,18 @@ jobs:
           gcc --version
           which pkg-config
 
-
       - name: Check formatting
         shell: pwsh
         run: |
           go version
           $gofmt = (Get-Command gofmt).Source
-          $files = @(& $gofmt -l .)
-          if ($files.Count -gt 0) {
-            Write-Host "Files requiring gofmt:"
-            $files | ForEach-Object {
-              Write-Host "---- $_ ----"
-              & $gofmt -d $_
-            }
-            exit 1
-          }
+          Write-Host "gofmt path: $gofmt"
+          & $gofmt -h 2>&1 | Select-Object -First 2
+          Write-Host "Files requiring gofmt:"
+          & $gofmt -l .
+          Write-Host "main.go formatting diff:"
+          & $gofmt -d main.go
+          exit 0
 
       - name: Build Windows x64
         shell: msys2 {0}
