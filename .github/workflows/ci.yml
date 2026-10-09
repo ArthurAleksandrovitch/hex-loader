@@ -79,12 +79,19 @@ jobs:
           gcc --version
           which pkg-config
 
+
       - name: Check formatting
         shell: pwsh
         run: |
+          go version
           $gofmt = (Get-Command gofmt).Source
-          & $gofmt -l .
-          if ((& $gofmt -l .).Count -gt 0) {
+          $files = @(& $gofmt -l .)
+          if ($files.Count -gt 0) {
+            Write-Host "Files requiring gofmt:"
+            $files | ForEach-Object {
+              Write-Host "---- $_ ----"
+              & $gofmt -d $_
+            }
             exit 1
           }
 
