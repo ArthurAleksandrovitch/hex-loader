@@ -112,7 +112,7 @@ jobs:
           path: hex-loader-windows-x64.exe
 
   build-macos:
-    runs-on: macos-15-xlarge
+    runs-on: macos-15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
