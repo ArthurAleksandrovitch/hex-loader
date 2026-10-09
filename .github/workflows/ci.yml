@@ -77,14 +77,14 @@ jobs:
         run: test -z "$(gofmt -l .)"
 
       - name: Build Windows x64
-        shell: pwsh
+        shell: msys2 {0}
         run: |
-          $env:CGO_ENABLED = "1"
-          $env:CC = "C:\msys64\ucrt64\bin\gcc.exe"
-          $env:PKG_CONFIG = "C:\msys64\ucrt64\bin\pkg-config.exe"
-          $env:PKG_CONFIG_PATH = "C:\msys64\ucrt64\lib\pkgconfig"
-          $env:PATH = "C:\msys64\ucrt64\bin;$env:PATH"
+          export CGO_ENABLED=1
+          export CC=gcc
+          export PKG_CONFIG=/ucrt64/bin/pkg-config
           go version
+          which gcc
+          gcc --version
           go build -o hex-loader-windows-x64.exe .
 
       - name: Upload Windows artifact
